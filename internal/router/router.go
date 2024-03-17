@@ -3,12 +3,20 @@ package router
 import (
 	"database/sql"
 	"github.com/go-chi/chi"
+	httpSwagger "github.com/swaggo/http-swagger"
 	"log"
 	"net/http"
 	"studentgit.kata.academy/xp/Library/internal/controller"
+	_ "studentgit.kata.academy/xp/Library/internal/docs"
 	"studentgit.kata.academy/xp/Library/internal/repository"
 	"studentgit.kata.academy/xp/Library/internal/service"
 )
+
+// @title Library
+// @version 1.0
+// @description This is implementation library API
+// @host localhost:8080
+// @BasePath /
 
 type Router struct {
 	db *sql.DB
@@ -31,7 +39,9 @@ func (r *Router) StartRouter() {
 	}
 
 	handler := controller.NewController(serviceRout)
-
+	r.r.Get("/swagger/*", httpSwagger.Handler(
+		httpSwagger.URL("http://localhost:8080/swagger/doc.json"),
+	))
 	r.r.Post("/users/{userID}/books/{bookID}/rent", handler.RentBook)
 	r.r.Post("/users/{userID}/books/{bookID}/return", handler.ReturnBook)
 	r.r.Post("/authors/{name}", handler.AddAuthor)

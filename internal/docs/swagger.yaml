@@ -1,0 +1,187 @@
+definitions:
+  models.Authors:
+    properties:
+      books:
+        items:
+          $ref: '#/definitions/models.Book'
+        type: array
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  models.Book:
+    properties:
+      author:
+        $ref: '#/definitions/models.Authors'
+      id:
+        type: integer
+      rented:
+        type: boolean
+      title:
+        type: string
+    type: object
+  models.User:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      rentedBooks:
+        items:
+          $ref: '#/definitions/models.Book'
+        type: array
+    type: object
+info:
+  contact: {}
+paths:
+  /authors:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Authors'
+      summary: Get all authours
+      tags:
+      - library
+  /authors/{name}:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: name author
+        in: path
+        name: author
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Add author by name
+      tags:
+      - library
+  /authors/top/{limit}:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: limit
+        in: path
+        name: author
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Authors'
+            type: array
+      summary: Get toop authors by limit
+      tags:
+      - library
+  /book/{name}:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Title
+        in: path
+        name: book
+        required: true
+        type: string
+      - description: Id Author
+        in: path
+        name: book
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Add book
+      tags:
+      - library
+  /books:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Book'
+            type: array
+      summary: Get all books
+      tags:
+      - library
+  /users:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+      summary: Get all users
+      tags:
+      - library
+  /users/{userID}/books/{bookID}/rent:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: user ID
+        in: path
+        name: userID
+        required: true
+        type: string
+      - description: book ID
+        in: path
+        name: bookID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Rent to book by user ID and book ID
+      tags:
+      - library
+  /users/{userID}/books/{bookID}/return:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: user ID
+        in: path
+        name: userID
+        required: true
+        type: string
+      - description: book ID
+        in: path
+        name: bookID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Return to book by user ID and book ID
+      tags:
+      - library
+swagger: "2.0"
