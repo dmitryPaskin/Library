@@ -14,7 +14,7 @@ type UserDataBase struct {
 }
 
 func New() (UserDataBase, error) {
-	if err := godotenv.Load(); err != nil {
+	if err := godotenv.Load(".env"); err != nil {
 		return UserDataBase{nil}, err
 	}
 	dbHost := os.Getenv("DB_HOST")

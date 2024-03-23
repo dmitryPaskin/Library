@@ -9,6 +9,7 @@ import (
 	"studentgit.kata.academy/xp/Library/internal/controller"
 	_ "studentgit.kata.academy/xp/Library/internal/docs"
 	"studentgit.kata.academy/xp/Library/internal/repository"
+	"studentgit.kata.academy/xp/Library/internal/repository/generator"
 	"studentgit.kata.academy/xp/Library/internal/service"
 )
 
@@ -31,6 +32,8 @@ func NewRouter(db *sql.DB) Router {
 	}
 }
 func (r *Router) StartRouter() {
+	generator.GenerateTable(generator.New(r.db))
+
 	serviceRout := service.LibraryService{
 		UserRepo:   repository.NewUser(r.db),
 		BookRepo:   repository.NewBook(r.db),

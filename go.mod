@@ -1,10 +1,14 @@
 module studentgit.kata.academy/xp/Library
 
-go 1.18
+go 1.21
+
+toolchain go1.21.8
 
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/Masterminds/squirrel v1.5.4 // indirect
+	github.com/brianvoe/gofakeit v3.18.0+incompatible // indirect
+	github.com/brianvoe/gofakeit/v6 v6.28.0 // indirect
 	github.com/go-chi/chi v1.5.5 // indirect
 	github.com/go-openapi/jsonpointer v0.21.0 // indirect
 	github.com/go-openapi/jsonreference v0.21.0 // indirect
